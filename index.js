@@ -8,10 +8,11 @@ const port = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 
+console.log("User:", process.env.DB_USER);
+console.log("Pass:", process.env.DB_PASS);
 
 
-
-const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.khtcm39.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
+const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.khtcm39.mongodb.net/?retryWrites=true&w=majority&tls=true&appName=Cluster0`;
 
 // const uri = "mongodb+srv://coffee-monster:95wbuIe6dzZIAPHQ@cluster0.khtcm39.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 
