@@ -10,8 +10,7 @@ app.use(express.json());
 
 
 
-
-const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.khtcm39.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
+const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.khtcm39.mongodb.net/?retryWrites=true&w=majority&tls=true&appName=Cluster0`;
 
 // const uri = "mongodb+srv://coffee-monster:95wbuIe6dzZIAPHQ@cluster0.khtcm39.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 
@@ -94,6 +93,18 @@ async function run() {
             const userProfile = req.body;
             console.log(userProfile);
             const result = await usersCollection.insertOne(userProfile);
+            res.send(result);
+        })
+
+        app.patch('/users', async(req, res)=>{
+            const {email, lastSignInTime} = req.body;
+            const filter = {email:email};
+            const updateDoc = {
+                $set:{
+                    lastSignInTime:lastSignInTime,
+                },
+            }
+            const result = await usersCollection.updateOne(filter, updateDoc);
             res.send(result);
         })
 
